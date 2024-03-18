@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Check if the script was called with the -o option
+script_path="/home/rex/code/headlines/stratfor.py"
+
 if [ "$1" == "-o" ]; then
-    # Open Firefox
-    firefox >/dev/null 2>&1 https://worldview.stratfor.com
+    # Open Firefox and navigate to Stratfor's main page
+    firefox https://worldview.stratfor.com &>/dev/null &
 else
-    # Execute the Python script
-    python3 /home/rex/code/headlines/stratfor.py
+    # Pass all arguments to the Python script
+    python3 "$script_path" "$@"
 fi

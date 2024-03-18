@@ -1,5 +1,4 @@
 option_o=false
-extra_args=() # Initialize an array to hold extra arguments
 
 while getopts "fiseychow" opt; do
   case $opt in
@@ -32,7 +31,7 @@ EOF
       command="/home/rex/code/headlines/infosecuritymag.sh"
       ;;
     s)
-      command="/home/rex/code/headlines/stratfor.sh"
+      command="/home/rex/code/stratfor/stratfor.py"
       ;;
     w)
       command="/home/rex/code/headlines/wikinews.sh"
@@ -47,24 +46,14 @@ EOF
   esac
 done
 
-# Shift getopts processed options out of the way
-shift $((OPTIND-1))
-
-# Any remaining arguments are captured as extra arguments
-extra_args+=("$@")
-
 # Check if -o was set and modify the command accordingly
 if $option_o; then
   command="$command -o"
 fi
 
-# Pass along any extra arguments to the command
+# Execute the command
 if [ -n "$command" ]; then
-  if [ ${#extra_args[@]} -eq 0 ]; then
-    eval $command
-  else
-    eval $command "${extra_args[@]}"
-  fi
+  eval $command
 else
   echo ""
 fi
